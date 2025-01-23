@@ -1,0 +1,23 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches:
+      - obs-studio
+
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          args: >
+            -Dsonar.organization=SEU_ORGANIZATION_KEY
+            -Dsonar.projectKey=vlc
+            -Dsonar.host.url=https://sonarcloud.io
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
